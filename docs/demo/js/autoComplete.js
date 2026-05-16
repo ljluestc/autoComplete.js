@@ -346,10 +346,11 @@
     }
   };
   var open = function open(ctx) {
-    if (ctx.isOpen) return;
+    var wasOpen = ctx.isOpen;
     (ctx.wrapper || ctx.input).setAttribute(Expand, true);
     ctx.list.removeAttribute("hidden");
     ctx.isOpen = true;
+    if (wasOpen) return;
     eventEmitter("open", ctx);
   };
   var close = function close(ctx) {

@@ -71,13 +71,15 @@ const render = (ctx) => {
  * @param {Object} ctx - autoComplete.js context
  */
 const open = (ctx) => {
-  if (ctx.isOpen) return;
+  const wasOpen = ctx.isOpen;
   // Set expanded attribute on the parent to true
   (ctx.wrapper || ctx.input).setAttribute(Expand, true);
   // Remove hidden attribute from list
   ctx.list.removeAttribute("hidden");
   // Set list to opened
   ctx.isOpen = true;
+  // Avoid re-emitting open when already open
+  if (wasOpen) return;
 
   /**
    * @emit {open} event after results list is opened
