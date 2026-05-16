@@ -557,8 +557,13 @@
     });
   }
 
+  var Extended = "__autoCompleteExtended";
   function extend (autoComplete) {
     var prototype = autoComplete.prototype;
+    if (prototype[Extended]) return;
+    Object.defineProperty(prototype, Extended, {
+      value: true
+    });
     prototype.init = function () {
       init(this);
     };
@@ -612,9 +617,9 @@
       tag: "li"
     };
     configure(this);
-    extend.call(this, autoComplete);
     init(this);
   }
+  extend(autoComplete);
 
   return autoComplete;
 

@@ -65,8 +65,9 @@ export default function autoComplete(config) {
   this.resultItem = { tag: "li" };
   // Set all Configuration options
   configure(this);
-  // Stage API methods
-  extend.call(this, autoComplete);
   // Initialize autoComplete.js
   init(this);
 }
+
+// Stage API methods once at module level (not per-instance)
+extend(autoComplete);

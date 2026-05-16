@@ -3,14 +3,18 @@ import start from "./start";
 import { removeEvents } from "../controllers/eventController";
 import { open, goTo, next, previous, select, close } from "../controllers/listController";
 import search from "../controllers/searchController";
+const Extended = "__autoCompleteExtended";
 
 /**
  * autoComplete.js API extension
  *
- * @param {Object} autoComplete - autoComplete.js object instance
+ * @param {Function} autoComplete - autoComplete.js constructor
  */
 export default function (autoComplete) {
   const { prototype } = autoComplete;
+  // Prevent re-extending shared prototype
+  if (prototype[Extended]) return;
+  Object.defineProperty(prototype, Extended, { value: true });
 
   // Initialize autoComplete.js engine
   prototype.init = function () {
